@@ -1,71 +1,141 @@
 // TODO: Include packages needed for this application
-const inquirer = require('inquirer');
-const fs = require('fs');
+import inquirer from 'inquirer';
+import fs from 'fs';
+// import * as generateMarkdown from './utils/generateMarkdown.js'
+// console.log(generateMarkdown);
+var licenses = ['Apache', 'MIT', 'Mozilla-Public', 'GNU-General-Public', 'Common-Development-and-Distribution'];
 
 // TODO: Create an array of questions for user input
 const questions = [
+    // Title
     {
-        type: "input",
-        message: "What is your GitHub user name?",
-        name: "username"
+        type: 'input',
+        name: 'title',
+        message: 'What is the title of the project?',
     },
+    // Description
     {
-        type: "input",
-        message: "What is your email address?",
-        name: "email"
+        type: 'input',
+        name: 'description',
+        message: 'Provide a description of the project',
     },
+    // Installation
     {
-        type: "input",
-        message: "What is your project's title?",
-        name: "title"
+        type: 'input',
+        name: 'installation',
+        message: 'How do you install your project?',
     },
+    // Usage
     {
-        type: "input",
-        message: "Please write a short description of your project.",
-        name: "description"
+        type: 'input',
+        name: 'usage',
+        message: 'How do you use this project?',
     },
+    // Contribution
     {
-        type: "list",
-        message: "What license should your project have?",
-        name: "license",
-        choices: [
-            "MIT",
-            "Unlicense",
-            "Apache 2.0",
-            "GNU v3",
-            "BSD 3-Clause",
-            "Mozilla Public License 2.0"
-        ]
+        type: 'input',
+        name: 'contribute',
+        message: 'How should people contribute to this project?',
     },
+    // Tesing
     {
-        type: "input",
-        message: "What command should be run to install dependencies?",
-        name: "installation",
-        default: "npm i"
+        type: 'input',
+        name: 'testing',
+        message: 'How do you test this project?',
     },
+    // License
     {
-        type: "input",
-        message: "What command should be run to run tests?",
-        name: "tests",
-        default: "npm run test"
+        type: 'checkbox',
+        name: 'licensing',
+        message: 'Choose a license for your project',
+        choices: ['Apache', 'MIT', 'Mozilla-Public', 'GNU-General-Public', 'Common-Development-and-Distribution', 'None'],
     },
+    // Github
     {
-        type: "input",
-        message: "What does the user need to know about using the repository?",
-        name: "usage"
+        type: 'input',
+        name: 'github',
+        message: 'Enter your GitHub Username:',
     },
+    // Email
     {
-        type: "input",
-        message: "What does the user need to know about contributing to the repository?",
-        name: "contribute"
+        type: 'input',
+        name: 'email',
+        message: 'Enter your email address:',
     },
 ];
 
+function generateMarkdown(data) {
+    console.log('data.licensing', data.licensing);
+    const licensing = data.licensing;
+    console.log('licensing', licensing);
+    const licString = licensing.toString();
+    console.log('licString', licString);
+    const licUrl = licString.replace(/-/g,'%20');
+    console.log('licUrl', licUrl);
+    const licSpace = licString.replace(/-/g,' ');
+    console.log('licSpace', licSpace);
+    if (licensing.includes('None') || licensing == '[]'){
+    var licBadge = '';
+    var licSection = '';
+    var licTOC = '';
+    } else {
+    var licBadge = `![license](https://img.shields.io/badge/license-${licUrl}-blue)`;
+    var licSection = `## License:
+    Covered under "${licSpace}" license`;
+    var licTOC = `- [License](#license)`;
+    }
+
+return `# ${data.title}
+
+${licBadge}
+
+## Description:
+${data.description}
+
+## Table of Contents 
+- [Description](#description)
+- [Installation](#installation)
+- [Usage](#usage)
+${licTOC}
+- [Contributing](#contributing)
+- [Tests](#tests)
+- [Questions](#questions)
+
+## Installation:
+${data.installation}
+
+## Usage:
+${data.usage}
+
+${licSection}
+
+## Contributing:
+${data.contribute}
+
+## Tests:
+${data.testing}
+
+## Questions:
+- Github: [${data.github}](https://github.com/${data.github})
+- Email: ${data.email} `;
+
+}
+
 // TODO: Create a function to write README file
-function writeToFile(fileName, data) {}
+function writeToFile(fileName, data) {
+    fs.writeFile(fileName, data, (err) => {
+        err ? console.error(err) : console.log('Success!')
+    });
+}
 
 // TODO: Create a function to initialize app
-function init() {}
+function init() {
+    inquirer.prompt(questions)
+    .then(function (data) {
+        console.log(data);
+        writeToFile("README2.md", generateMarkdown(data));
+    });
+}
 
 // Function call to initialize app
 init();
