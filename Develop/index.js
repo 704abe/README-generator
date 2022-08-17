@@ -1,8 +1,6 @@
 // TODO: Include packages needed for this application
 import inquirer from 'inquirer';
 import fs from 'fs';
-// import * as generateMarkdown from './utils/generateMarkdown.js'
-// console.log(generateMarkdown);
 var licenses = ['Apache', 'MIT', 'Mozilla-Public', 'GNU-General-Public', 'Common-Development-and-Distribution'];
 
 // TODO: Create an array of questions for user input
@@ -64,25 +62,23 @@ const questions = [
     },
 ];
 
+// Generates README based on user input
 function generateMarkdown(data) {
-    console.log('data.licensing', data.licensing);
+    // console.log('data.licensing', data.licensing);
     var licensing = data.licensing;
-    console.log('licensing', licensing);
+    // console.log('licensing', licensing);
     const licString = licensing.toString();
-    console.log('licString', licString);
+    // console.log('licString', licString);
     const licUrl = licString.replace(/-/g,'%20');
-    console.log('licUrl', licUrl);
+    // console.log('licUrl', licUrl);
     const licSpace = licString.replace(/-/g,' ');
-    console.log('licSpace', licSpace);
+    // console.log('licSpace', licSpace);
     if (licensing.includes('None') || licensing == ''){
-        console.log('hello');
         var licBadge = '';
         var licSection = '';
         var licTOC = '';
     } else {
         var licBadge = `![license](https://img.shields.io/badge/license-${licUrl}-blue)`;
-        // var licSection = `## License:
-        // Covered under "${licSpace}" license`;
         var licSection = '## License: \n'
         + 'Covered under "' + licensing + '" license';
         var licTOC = `- [License](#license)`;
