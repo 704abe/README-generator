@@ -1,9 +1,9 @@
-# rety
+# 
 
-![license](https://img.shields.io/badge/license-Common%20Development%20and%20Distribution-blue)
+![license](https://img.shields.io/badge/license-Apache-blue)
 
 ## Description:
-erty
+
 
 ## Table of Contents 
 - [Description](#description)
@@ -15,20 +15,20 @@ erty
 - [Questions](#questions)
 
 ## Installation:
-erty
+
 
 ## Usage:
-erty
 
-## License:
-    Covered under "Common Development and Distribution" license
+
+## License: 
+Covered under "Apache" license
 
 ## Contributing:
-erty
+
 
 ## Tests:
-erty
+
 
 ## Questions:
-- Github: [erty](https://github.com/erty)
-- Email: erty 
+- Github: [](https://github.com/)
+- Email:  

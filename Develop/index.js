@@ -66,7 +66,7 @@ const questions = [
 
 function generateMarkdown(data) {
     console.log('data.licensing', data.licensing);
-    const licensing = data.licensing;
+    var licensing = data.licensing;
     console.log('licensing', licensing);
     const licString = licensing.toString();
     console.log('licString', licString);
@@ -74,15 +74,18 @@ function generateMarkdown(data) {
     console.log('licUrl', licUrl);
     const licSpace = licString.replace(/-/g,' ');
     console.log('licSpace', licSpace);
-    if (licensing.includes('None') || licensing == '[]'){
-    var licBadge = '';
-    var licSection = '';
-    var licTOC = '';
+    if (licensing.includes('None') || licensing == ''){
+        console.log('hello');
+        var licBadge = '';
+        var licSection = '';
+        var licTOC = '';
     } else {
-    var licBadge = `![license](https://img.shields.io/badge/license-${licUrl}-blue)`;
-    var licSection = `## License:
-    Covered under "${licSpace}" license`;
-    var licTOC = `- [License](#license)`;
+        var licBadge = `![license](https://img.shields.io/badge/license-${licUrl}-blue)`;
+        // var licSection = `## License:
+        // Covered under "${licSpace}" license`;
+        var licSection = '## License: \n'
+        + 'Covered under "' + licensing + '" license';
+        var licTOC = `- [License](#license)`;
     }
 
 return `# ${data.title}
